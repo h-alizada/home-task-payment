@@ -6,7 +6,8 @@ Techical notes:
    - Logs are written to the file to the 'Logs' folder in Checkout.PaymentGateway.WebApi 
    - API docs exists on /swagger url
    - Basic metrics exists on /metrics url
-
+   - Mock Bank API will return failed result if the amount is greater than 2500
+   
 Assumptions:
    - I build the solution with the assumtpion that Payment Gateway should be responsible for only basic card information check like if it has valid card number, ccv and expiry date. 
    - I assume Payment Gateway is also responsible for sending payment request to actual Bank and store the result of transaction whether it is failed or succeed in a storage
