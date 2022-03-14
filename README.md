@@ -4,7 +4,8 @@ Checkout.com Payment Gateway
 Techical notes: 
    - To run solution just build and run Checkout.PaymentGateway.WebApi project. I am using Azure SQL on my personal Azure account. Feel free to use it or replace it with your own Connection String. Project could be also build and run via Docker. Just make sure that you are on root directory of the solution
    - Logs are written to the file to the 'Logs' folder in Checkout.PaymentGateway.WebApi 
-
+   - API docs exists on /swagger url
+   - Basic metrics exists on /metrics url
 
 Assumptions:
    - I build the solution with the assumtpion that Payment Gateway should be responsible for only basic card information check like if it has valid card number, ccv and expiry date. 
