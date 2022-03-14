@@ -22,6 +22,7 @@ using Microsoft.OpenApi.Models;
 using Prometheus;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Text.Json;
 
 namespace Checkout.PaymentGateway.WebApi
 {
@@ -37,7 +38,12 @@ namespace Checkout.PaymentGateway.WebApi
 		{
             AddSwagger(services);
 
-            services.AddControllers();
+            services.AddControllers()
+                .AddJsonOptions(options =>
+                {
+                    options.JsonSerializerOptions.IgnoreNullValues = true;
+                    options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+                }); 
 
             services.AddDbContext<PaymentGatewayContext>(options =>
 			   options.UseSqlServer(Configuration.GetConnectionString("PaymentGatewayConnectionString")));
@@ -72,6 +78,7 @@ namespace Checkout.PaymentGateway.WebApi
             app.UseEndpoints(endpoints =>
 			{
 				endpoints.MapControllers();
+              
 			});
         ;
         }

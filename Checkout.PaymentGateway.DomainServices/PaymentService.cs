@@ -29,6 +29,7 @@ namespace Checkout.PaymentGateway.DomainServices
 			payment.ErrorMessage = bankTransaction.ErrorMessage;
 			payment.CreatedDate = DateTime.UtcNow;
 
+			var returnedCardNumber = $"********{payment.Card.CardNumber.Substring(payment.Card.CardNumber.Length - 4)}";
 			payment.Card.CardNumber = _infrastructureService.EncryptCardNumber(payment.Card.CardNumber);
 
 			await _infrastructureService.SavePayment(payment);
@@ -37,6 +38,8 @@ namespace Checkout.PaymentGateway.DomainServices
 			{
 				throw new BankTransactionFailedException(bankTransaction.ErrorMessage, bankTransaction.Id);
 			}
+
+			payment.Card.CardNumber = returnedCardNumber;
 
 			return payment;
 		}

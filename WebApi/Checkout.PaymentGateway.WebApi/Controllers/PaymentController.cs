@@ -32,7 +32,7 @@ namespace Checkout.PaymentGateway.WebApi.Controllers
 		{
 			var response = await _service.GetPayment(id);
 
-			return Ok(response);
+			return Ok(response.ToGetPaymentResponse());
 		}
 	}
 }

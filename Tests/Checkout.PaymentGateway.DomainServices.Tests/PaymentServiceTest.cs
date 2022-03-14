@@ -25,7 +25,7 @@ namespace Checkout.PaymentGateway.DomainServices.Tests
 		{
 			var validCardNumber = "0000-0000-0000-0001";
 			var validCcv = "957";
-			var bankTransactionId = Guid.NewGuid(); 
+			var bankTransactionId = Guid.NewGuid();
 			var payment = new Payment
 			{
 				Card = new Card { CardNumber = validCardNumber, Cvv = validCcv, ExpiryMonth = 5, ExpiryYear = DateTime.Now.AddYears(10).Year }
@@ -38,9 +38,13 @@ namespace Checkout.PaymentGateway.DomainServices.Tests
 					PaymentStatus = PaymentStatus.Succeed
 				});
 
+			_mockInfrastructure.Setup(x => x.EncryptCardNumber(It.IsAny<string>())).Returns("encrypted-card-number");
+
 			var service = new PaymentService(_mockInfrastructure.Object);
 
 			await service.ProcessPayment(payment);
+
+	
 
 			_mockInfrastructure.Verify(x => x.SavePayment(payment), Times.Once);
 
@@ -59,7 +63,7 @@ namespace Checkout.PaymentGateway.DomainServices.Tests
 			await service.ProcessPayment(new Payment
 			{
 				Card = new Card { CardNumber = invalidCardNumber }
-			}) ;
+			});
 		}
 
 
@@ -125,9 +129,12 @@ namespace Checkout.PaymentGateway.DomainServices.Tests
 				Amount = 100,
 				Currency = CurrencyType.EUR,
 				Id = Guid.NewGuid(),
+				Card = new Card { CardNumber = "0000-0000-0000-0000" }
 			};
+
 			_mockInfrastructure.Setup(x => x.GetPayment(It.IsAny<Guid>()))
 				.ReturnsAsync(payment);
+			_mockInfrastructure.Setup(x => x.DecryptCardNumber(It.IsAny<string>())).Returns("decrypted");
 
 			var service = new PaymentService(_mockInfrastructure.Object);
 
@@ -138,6 +145,7 @@ namespace Checkout.PaymentGateway.DomainServices.Tests
 			Assert.AreEqual(result.MerchantId, payment.MerchantId);
 			Assert.AreEqual(result.Amount, payment.Amount);
 			Assert.AreEqual(result.Currency, payment.Currency);
+			Assert.AreEqual(result.Card.CardNumber, $"********{payment.Card.CardNumber.Substring(payment.Card.CardNumber.Length - 4)}");
 		}
 
 		[TestMethod]
