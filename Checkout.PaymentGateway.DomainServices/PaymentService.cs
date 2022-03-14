@@ -67,7 +67,7 @@ namespace Checkout.PaymentGateway.DomainServices
 			//checking if it is valid master or visa or any other card should be the responsibility of Bank API
 			if (cardNumber.Length != 16 || !long.TryParse(cardNumber, out long result))
 			{
-				throw new CardNumberIsNotValidException();
+				throw new CardNumberIsNotValidException($"Given card number '{cardNumber}' is not valid");
 			}
 		}
 
@@ -75,7 +75,7 @@ namespace Checkout.PaymentGateway.DomainServices
 		{
 			if (cvv.Length != 3 || !char.IsDigit(cvv[0]) || !char.IsDigit(cvv[1]) || !char.IsDigit(cvv[2]))
 			{
-				throw new CardCvvIsNotValidException();
+				throw new CardCvvIsNotValidException($"Given card ccv number '{cvv}' is not valid");
 			}
 		}
 
@@ -86,7 +86,7 @@ namespace Checkout.PaymentGateway.DomainServices
 
 			if (expiryDate < currentDate)
 			{
-				throw new CardExpiredException();
+				throw new CardExpiredException($"Given is expired at '{expiryDate}'");
 			}
 		}
 	}
