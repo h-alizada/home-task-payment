@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <Nullable>enable</Nullable>
+    <AssemblyName>Checkout.PaymentGateway.Infrastructure.Http</AssemblyName>
+    <RootNamespace>Checkout.PaymentGateway.Infrastructure.Http</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Checkout.PaymentGateway.Infrastructure.Core\Checkout.PaymentGateway.Infrastructure.Core.csproj" />
+  </ItemGroup>
+
+</Project>
