@@ -15,12 +15,12 @@ Assumptions:
 
 
 Imporvements that Could be made:
-   -CI/CD could be provisioned as mentioned in extra miles section
-   -apart from CI/CD, a Key storage mechanism such as Azure Key Vault could be used to store sensitive information such as DB connection strings, Cryptography Key/Vector and so on
-   -Authentication/Authorization could be added as mentioned in extra miles section
-   -Current logic saves payment after getting response from bank. Retry logic could be added in case we fail to save payment to the storage. Or even further some messaging system could be used to save payments later. For now we have only logs that is written to the file
-   -Metrics could be improved
-   -Validation on api request could be improved. Currently Process Payment endpoint expect to have card expiry year with four digits such as 2025 or card number should be with dashes. This could be improved to give the ability to api user to provide for instance year like 25 instead of 2025
-   -Integration tests could be added
-   -Exception mappings could be improved
+   - CI/CD could be provisioned as mentioned in extra miles section
+   - apart from CI/CD, a Key storage mechanism such as Azure Key Vault could be used to store sensitive information such as DB connection strings, Cryptography Key/Vector and so on
+   - Authentication/Authorization could be added as mentioned in extra miles section
+   - Current logic saves payment after getting response from bank. Retry logic could be added in case we fail to save payment to the storage. Or even further some messaging system could be used to save payments later. For now we have only logs that is written to the file
+   - Metrics could be improved
+   - Validation on api request could be improved. Currently Process Payment endpoint expect to have card expiry year with four digits such as 2025 or card number should be with dashes. This could be improved to give the ability to api user to provide for instance year like 25 instead of 2025
+   - Integration tests could be added
+   - Exception mappings could be improved
 
